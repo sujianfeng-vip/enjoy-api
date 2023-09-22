@@ -1,0 +1,17 @@
+
+
+database:
+  url: jdbc:mysql://127.0.0.1:3306/enjoy_api?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+  username: root
+  password: 960720
+  database: enjoy_admin
+
+modelBuilder:
+  modelBase: vip.sujianfeng.admin.dbconn.MyModelBase
+  poPath: 00_models/src/main/kotlin/vip/sujianfeng/admin/po
+  voPath: 00_models/src/main/kotlin/vip/sujianfeng/admin/vo
+  ignoreFields: id,bizStatus,createTime,updateTime,state,createUserId,updateUserId,remark,
+
+codeBuilder:
+  frontPath: 80_web/src/main/resources/templates/module
+  backPath: 80_web/src/main/kotlin/vip/sujianfeng/admin/module

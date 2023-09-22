@@ -1,0 +1,4 @@
+rootProject.name = 'enjoy-api'
+include '00_models'
+include '80_web'
+

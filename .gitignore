@@ -1,0 +1,15 @@
+.git/
+.gradle/
+.idea/
+*.iml
+build
+out
+*.class
+classes/
+production/
+output
+bin
+loggingPath_IS_UNDEFINED
+*.log
+/logs/*.csv
+/doc/~*.xlsx
