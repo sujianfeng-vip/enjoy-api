@@ -8,10 +8,9 @@ database:
 
 modelBuilder:
   modelBase: vip.sujianfeng.admin.dbconn.MyModelBase
-  poPath: 00_models/src/main/kotlin/vip/sujianfeng/admin/po
-  voPath: 00_models/src/main/kotlin/vip/sujianfeng/admin/vo
+  poPath: 00_models/src/main/kotlin/vip/sujianfeng/enjoyapi/po
+  voPath: 00_models/src/main/kotlin/vip/sujianfeng/enjoyapi/vo
   ignoreFields: id,bizStatus,createTime,updateTime,state,createUserId,updateUserId,remark,
 
 codeBuilder:
-  frontPath: 80_web/src/main/resources/templates/module
-  backPath: 80_web/src/main/kotlin/vip/sujianfeng/admin/module
+  backPath: 80_web/src/main/kotlin/vip/sujianfeng/enjoyapi/module

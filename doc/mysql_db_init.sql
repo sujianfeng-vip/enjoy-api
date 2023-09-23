@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : 乐享后台
 Source Server Version : 80028
 Source Host           : 127.0.0.1:3306
-Source Database       : enjoy_admin
+Source Database       : enjoy_api
 
 Target Server Type    : MYSQL
 Target Server Version : 80028
