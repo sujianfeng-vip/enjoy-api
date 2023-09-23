@@ -55,22 +55,22 @@
     `update_user_id` varchar(50) DEFAULT NULL,
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='课程定义';
-![创建课程表](doc/images/create-table.jpg)
+![创建课程表](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/create-table.jpg)
 ## (3) 配置代码生成工具的数据库链接
-![代码生成工具的数据库链接](doc/images/tools-db.jpg)
+![代码生成工具的数据库链接](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/tools-db.jpg)
 ## (4) 启动代码生成工具
     进入项目中的tools目录，windows运行enjoy-dao-ui.bat，liunx或mac运行enjoy-dao-ui.sh
-![启动代码生成工具](doc/images/start-code-tools.jpg)    
+![启动代码生成工具](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/start-code-tools.jpg)    
 ## (5) 代码生成工具启动时自动创建表对应的实体模型
-![创建表对应的实体模型文件](doc/images/model-code-file.jpg)
+![创建表对应的实体模型文件](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/model-code-file.jpg)
 ## (6) 【课程定义】模型代码
-![模型代码](doc/images/model-code-class.jpg)
+![模型代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/model-code-class.jpg)
 ## (7) 代码生成工具生成【课程定义】的后端接口api代码
-![生成后端代码](doc/images/build-back-code.jpg)
-![生成后端代码](doc/images/demo-back-code.jpg)
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/build-back-code.jpg)
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/demo-back-code.jpg)
 ## (8) 项目打包
     gradle build -x test
 ## (9) 启动项目，查看下接口文档
     运行 start-dev.bat
     http://127.0.0.1:8080/doc.html
-![生成后端代码](doc/images/course-api-docs.jpg)    
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/course-api-docs.jpg)    
