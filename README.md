@@ -73,3 +73,4 @@
 ## (9) 启动项目，查看下接口文档
     运行 start-dev.bat
     http://127.0.0.1:8080/doc.html
+![生成后端代码](doc/images/course-api-docs.jpg)    
