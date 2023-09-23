@@ -64,5 +64,12 @@
 ## (5) 代码生成工具启动时自动创建表对应的实体模型
 ![创建表对应的实体模型文件](doc/images/model-code-file.jpg)
 ## (6) 【课程定义】模型代码
-![创建表对应的实体模型文件](doc/images/model-code-class.jpg)
+![模型代码](doc/images/model-code-class.jpg)
 ## (7) 代码生成工具生成【课程定义】的后端接口api代码
+![生成后端代码](doc/images/build-back-code.jpg)
+![生成后端代码](doc/images/demo-back-code.jpg)
+## (8) 项目打包
+    gradle build -x test
+## (9) 启动项目，查看下接口文档
+    运行 start-dev.bat
+    http://127.0.0.1:8080/doc.html
