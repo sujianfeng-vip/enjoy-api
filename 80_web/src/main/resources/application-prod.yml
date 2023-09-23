@@ -8,12 +8,12 @@ server:
       timeout: 7d
 spring:
   application:
-    name: enjoy_admin
+    name: enjoy_api
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/enjoy_admin?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://127.0.0.1:3306/enjoy_api?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
     username: root
     password: 960720
-    database: enjoy_admin
+    database: enjoy_api
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     maximum-pool-size: 10
