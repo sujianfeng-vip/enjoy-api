@@ -4,10 +4,11 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import vip.sujianfeng.enjoydao.annotations.*
 import vip.sujianfeng.enjoydao.sqlcondition.*
+import vip.sujianfeng.enjoydao.enums.*
 
 /**
- * @Author GenerateModelBuilder
- * @Description 读取数据库生成的实体模型代码，不要手动修改，重新生成后会覆盖
+ * author GenerateModelBuilder
+ * description 读取数据库生成的实体模型代码，不要手动修改，重新生成后会覆盖
  **/
 @ApiModel("用户PO")
 @TbTableUuid(table = "rbac_user")
@@ -63,8 +64,8 @@ open class RbacUserPO: vip.sujianfeng.enjoyapi.dbconn.MyModelBase() {
 }
 
 /**
- * @Author GenerateModelBuilder
- * @Description Sql条件生成器
+ * author GenerateModelBuilder
+ * description Sql条件生成器
  **/
 class RbacUserCU: SqlConditionBuilder<RbacUserCU>() {
     var AVATAR_URL = SqlConditionField<RbacUserCU>(this, "a.avatar_url")

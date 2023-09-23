@@ -7,8 +7,8 @@ import vip.sujianfeng.enjoydao.sqlcondition.*
 import vip.sujianfeng.enjoydao.enums.*
 
 /**
- * @Author GenerateModelBuilder
- * @Description 读取数据库生成的实体模型代码，不要手动修改，重新生成后会覆盖
+ * author GenerateModelBuilder
+ * description 读取数据库生成的实体模型代码，不要手动修改，重新生成后会覆盖
  **/
 @ApiModel("操作日志PO")
 @TbTableUuid(table = "op_log")
@@ -44,8 +44,8 @@ open class OpLogPO: vip.sujianfeng.enjoyapi.dbconn.MyModelBase() {
 }
 
 /**
- * @Author GenerateModelBuilder
- * @Description Sql条件生成器
+ * author GenerateModelBuilder
+ * description Sql条件生成器
  **/
 class OpLogCU: SqlConditionBuilder<OpLogCU>() {
     var BIZ_DATA = SqlConditionField<OpLogCU>(this, "a.biz_data")
