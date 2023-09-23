@@ -57,9 +57,12 @@
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='课程定义';
 ![创建课程表](doc/images/create-table.jpg)
 ## (3) 配置代码生成工具的数据库链接
-![创建课程表](doc/images/tools-db.jpg)
+![代码生成工具的数据库链接](doc/images/tools-db.jpg)
 ## (4) 启动代码生成工具
     进入项目中的tools目录，windows运行enjoy-dao-ui.bat，liunx或mac运行enjoy-dao-ui.sh
-![创建课程表](doc/images/start-code-tools.jpg)    
+![启动代码生成工具](doc/images/start-code-tools.jpg)    
 ## (5) 代码生成工具启动时自动创建表对应的实体模型
-    
+![创建表对应的实体模型文件](doc/images/model-code-file.jpg)
+## (6) 【课程定义】模型代码
+![创建表对应的实体模型文件](doc/images/model-code-class.jpg)
+## (7) 代码生成工具生成【课程定义】的后端接口api代码
