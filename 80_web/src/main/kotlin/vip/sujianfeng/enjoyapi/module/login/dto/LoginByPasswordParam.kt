@@ -1,4 +1,4 @@
-package vip.sujianfeng.enjoyapi.module.login.params
+package vip.sujianfeng.enjoyapi.module.login.dto
 
 import io.swagger.annotations.ApiModel
 
@@ -12,6 +12,4 @@ class LoginByPasswordParam {
     var systemId = ""
     var loginName: String = ""
     var password: String = ""
-    var verificationCode: String = ""
-    var channelId: String = ""
 }

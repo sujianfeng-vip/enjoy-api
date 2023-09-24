@@ -217,7 +217,7 @@ CREATE TABLE `rbac_user` (
 -- ----------------------------
 -- Records of rbac_user
 -- ----------------------------
-INSERT INTO `rbac_user` VALUES ('192B7C741E2EF4CD6A4E7B7FEBF3F7A8', '99', '管理员', 'AUTO_REPORT', 'odJVz5b425lAKvC9B3L-Aq8SDpGY', 'admin', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLpnUF16DqydlzVAcCktEquqGSpJVOlscXFvhSEAdm2QHJRlia6aB7Jwgo6chOCdkvyiawlBxdAN08A/132', null, '123456', '0', 'light-css', '1653788938', '1693894707', '0', null, null, null);
+INSERT INTO `rbac_user` VALUES ('192B7C741E2EF4CD6A4E7B7FEBF3F7A8', '99', '管理员', 'DEFAULT', 'odJVz5b425lAKvC9B3L-Aq8SDpGY', 'admin', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLpnUF16DqydlzVAcCktEquqGSpJVOlscXFvhSEAdm2QHJRlia6aB7Jwgo6chOCdkvyiawlBxdAN08A/132', null, '123456', '0', 'light-css', '1653788938', '1693894707', '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for `ws_login_session`

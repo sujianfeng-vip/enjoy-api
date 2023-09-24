@@ -87,6 +87,15 @@
 ## (9) 启动项目，查看下接口文档
     运行 start-dev.bat
     http://127.0.0.1:8080/doc.html
-![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/course-api-docs.jpg)    
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/course-api-docs.jpg)
 
+# 6. 接口调用演示
+## （1）登录（默认登录名：admin 密码：123456）
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/login.jpg)    
+## （2）新增（新增-课程定义）
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/add-course.jpg)
+## （3）查询（查询单笔-课程定义）
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/query-one.jpg)
+## （4）更新（更新单笔-课程定义）
+![生成后端代码](https://hougu-erp2.oss-cn-shanghai.aliyuncs.com/enjoy-api/update-one.jpg)
 文档至此结束!

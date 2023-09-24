@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vip.sujianfeng.enjoyapi.dbconn.MyJdbcDao;
 import vip.sujianfeng.enjoyapi.dbconn.MyModelBase;
 import vip.sujianfeng.enjoyapi.vo.rbac.RbacUserVO;
 import vip.sujianfeng.redis.TbRedisCache;
+import vip.sujianfeng.token.JwtToken;
+import vip.sujianfeng.token.JwtTokenData;
 import vip.sujianfeng.utils.comm.ConvertUtils;
 import vip.sujianfeng.utils.comm.GuidUtils;
 import vip.sujianfeng.utils.comm.StringUtilsEx;
@@ -20,17 +23,45 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserUtils {
 
-    private static String USER_TOKEN = "TOKEN";
+    private static String TOKEN_KEY = "TOKEN";
+    public static final String TOKEN_SEED = "enjoyApi@2023";
+    public static final int TOKEN_EXPIRE_DAYS = 7;
     private static int TIMEOUT_SECONDS = 3600 * 24 * 7;
 
     private static Logger logger = LoggerFactory.getLogger(UserUtils.class);
 
-    public static RbacUserVO getCurrUser(){
-        String token = getToken();
-        if (StringUtilsEx.isEmpty(token)) {
-            return null;
+    private static RbacUserVO getByToken(String token) {
+        if (StringUtilsEx.isNotEmpty(token)) {
+            try {
+                JwtTokenData jwtTokenData = JwtToken.parseToken(token, TOKEN_SEED);
+                if (StringUtilsEx.isNotEmpty(jwtTokenData.getUserId())) {
+                    TbRedisCache redisCache = CtxProvider.getBeanByType(TbRedisCache.class);
+
+                    RbacUserVO userVO = redisCache.getObj(jwtTokenData.getUserId(), RbacUserVO.class);
+                    if (userVO != null) {
+                        return userVO;
+                    }
+                    userVO = getUserByDB(jwtTokenData.getUserId());
+
+                    if (userVO != null) {
+                        userPutToRedis(jwtTokenData.getUserId(), userVO);
+                        return userVO;
+                    }
+                }
+            } catch (Exception e) {
+                logger.info(e.toString(), e);
+            }
         }
-        return tbRedisCache().getObj(token, RbacUserVO.class);
+        return anonymousUser();
+    }
+
+    public static RbacUserVO getCurrUser() {
+        return getByToken(getToken());
+    }
+
+    private static RbacUserVO getUserByDB(String userId) throws Exception {
+        MyJdbcDao myJdbcDao = CtxProvider.getBeanByType(MyJdbcDao.class);
+        return myJdbcDao.selectOneByUuId(RbacUserVO.class, userId);
     }
 
     public static JSONObject getCurrUserJson(){
@@ -41,48 +72,58 @@ public class UserUtils {
         return tbRedisCache().getObj(token, JSONObject.class);
     }
 
-    public static RbacUserVO userPutToRedis(String token, RbacUserVO rbacUserVO) {
-        tbRedisCache().addCache(token, rbacUserVO, TIMEOUT_SECONDS);
+    public static RbacUserVO userPutToRedis(String userId, RbacUserVO rbacUserVO) {
+        tbRedisCache().addCache(userId, rbacUserVO, TIMEOUT_SECONDS);
         return rbacUserVO;
     }
 
     public static void logout() {
         RbacUserVO currUser = getCurrUser();
-        if (currUser == null){
-            return;
-        }
-        tbRedisCache().removeCache(getToken());
+        tbRedisCache().removeCache(currUser.getId());
         logger.info("退出登录：{}", JSON.toJSONString(currUser));
     }
 
     public static String getCurrUserId() {
-        RbacUserVO result = getCurrUser();
-        return result != null ? ConvertUtils.cStr(result.getId()) : "";
+        String token = getToken();
+        if (StringUtilsEx.isNotEmpty(token)) {
+            try {
+                JwtTokenData jwtTokenData = JwtToken.parseToken(token, TOKEN_SEED);
+                if (StringUtilsEx.isNotEmpty(jwtTokenData.getUserId())) {
+                    return jwtTokenData.getUserId();
+                }
+            } catch (Exception e) {
+                logger.info(e.toString(), e);
+            }
+        }
+        return anonymousUser().getId();
     }
 
     public static String currLoginSystemId() {
-        RbacUserVO currUser = getCurrUser();
-        return currUser != null && StringUtilsEx.isNotEmpty(currUser.getSystemId()) ? currUser.getSystemId() : "";
+        return getCurrUser().getSystemId();
+    }
+
+    public static String newToken(JwtTokenData data) throws Exception {
+        return JwtToken.newTokenByExpireDays(data, TOKEN_SEED, TOKEN_EXPIRE_DAYS);
+    }
+
+    public static RbacUserVO anonymousUser() {
+        RbacUserVO result = new RbacUserVO();
+        result.setId("0");
+        result.setLoginName("匿名");
+        return result;
     }
 
     public static String getToken() {
         String result = "";
         HttpServletRequest request = HttpRequestUtils.getRequest();
         if (request != null) {
-            result = HttpRequestUtils.getCookie(request, USER_TOKEN);
-            /*
-            String id = request.getSession().getId();
-            id = id.replace("-", "");
-            return id;
-            */
+            result = HttpRequestUtils.getCookie(request, TOKEN_KEY);
             if (StringUtilsEx.isEmpty(result)) {
-                result = request.getHeader(USER_TOKEN);
+                result = request.getHeader(TOKEN_KEY);
+                if (StringUtilsEx.isEmpty(result)) {
+                    result = request.getHeader(TOKEN_KEY.toUpperCase());
+                }
             }
-
-        }
-        if (StringUtilsEx.isEmpty(result)) {
-            result = GuidUtils.buildGuid();
-            HttpRequestUtils.setCookie(HttpRequestUtils.getResponse(), USER_TOKEN, result, TIMEOUT_SECONDS);
         }
         return result;
     }
@@ -92,7 +133,8 @@ public class UserUtils {
     }
 
     public static boolean isLogin(){
-        return getCurrUser() != null;
+        String currUserId = getCurrUserId();
+        return StringUtilsEx.isNotEmpty(currUserId) && !"0".equalsIgnoreCase(currUserId);
     }
 
 

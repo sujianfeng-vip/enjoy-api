@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import vip.sujianfeng.enjoyapi.base.controller.BaseController
 import vip.sujianfeng.enjoyapi.enums.UserType
-import vip.sujianfeng.enjoyapi.module.login.params.LoginByPasswordParam
+import vip.sujianfeng.enjoyapi.module.login.dto.LoginByPasswordParam
+import vip.sujianfeng.enjoyapi.module.login.dto.LoginResult
 import vip.sujianfeng.enjoyapi.utils.UserUtils
 import vip.sujianfeng.enjoyapi.utils.UserUtils.getToken
 import vip.sujianfeng.enjoyapi.vo.rbac.RbacUserVO
 import vip.sujianfeng.redis.TbRedisCache
+import vip.sujianfeng.token.JwtTokenData
 import vip.sujianfeng.utils.comm.StringUtilsEx
 import vip.sujianfeng.utils.define.CallResult
 
@@ -32,7 +34,7 @@ class LoginApiController: BaseController() {
 
     @ApiOperation("通过用户名密码登录")
     @PostMapping("/loginByPassword")
-    fun loginByPassword(@RequestBody param: LoginByPasswordParam): CallResult<RbacUserVO> {
+    fun loginByPassword(@RequestBody param: LoginByPasswordParam): CallResult<LoginResult> {
         return CallResult.opCall {
             if (param.loginName == "" || param.password == "") {
                 it.error("登录名称或密码不能为空!")
@@ -58,8 +60,14 @@ class LoginApiController: BaseController() {
             rbacUserVO.systemId = param.systemId
             jdbcTbDao().update(rbacUserVO, "systemId")
             rbacUserVO = jdbcTbDao().selectOneByUuId(RbacUserVO::class.java, rbacUserVO.id)
-            it.data = UserUtils.userPutToRedis(getToken(), rbacUserVO)
             addOpLog("", "","密码登录")
+            it.data = LoginResult().apply {
+                this.token = UserUtils.newToken(JwtTokenData().apply {
+                    this.userId = rbacUserVO.id
+                })
+                this.userInfo = rbacUserVO
+                UserUtils.userPutToRedis(rbacUserVO.id, rbacUserVO)
+            }
             //发送token给客户端
             /*
             WebSocketChannel.sendMessage(param.channelId, WebSocketMsg<RbacUser>().apply {
