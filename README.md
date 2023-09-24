@@ -18,7 +18,7 @@
     建议使用IDE：IntelliJ IDEA
 # 3. 项目初始化
 ## （1）数据库初始化
-    创建数据库，并运行 doc/mysql_db_init.sql
+    创建数据库enjoy_api（可根据需要修改并修正相关链接配置文件），并运行 doc/mysql_db_init.sql
 ## （2）配置文件 
     配置文件：    
     80_web/src/main/resources/application-dev.yml （开发环境）
